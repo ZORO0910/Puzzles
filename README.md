@@ -1,2 +1,2 @@
-# Puzzles
+# Game1
 trying things
