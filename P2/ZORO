@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>IQ Puzzle Game</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #1e1e2f, #3a3a5f);
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .box {
+            background: #2c2c44;
+            padding: 20px;
+            border-radius: 15px;
+            width: 400px;
+            margin: auto;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        input {
+            padding: 10px;
+            width: 80%;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: none;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #00c896;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00a67d;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🧠 IQ Puzzle Game</h1>
+
+    <div class="box">
+        <h2 id="level">Level 1</h2>
+        <p id="question"></p>
+
+        <input type="text" id="answer" placeholder="Enter your answer">
+        <br>
+        <button onclick="checkAnswer()">Submit</button>
+
+        <p class="message" id="message"></p>
+    </div>
+
+    <script>
+        let level = 0;
+        let score = 0;
+
+        const puzzles = [
+            {
+                question: "What comes next? 2, 4, 8, 16, ?",
+                answer: "32"
+            },
+            {
+                question: "Find missing number: 3, 9, 27, ?, 243",
+                answer: "81"
+            },
+            {
+                question: "If ALL = 36, BAT = 39, CAT = ?",
+                answer: "42"
+            },
+            {
+                question: "I speak without a mouth and hear without ears. What am I?",
+                answer: "echo"
+            },
+            {
+                question: "Which number replaces the question mark? 5, 10, 20, 40, ?",
+                answer: "80"
+            }
+        ];
+
+        function loadPuzzle() {
+            document.getElementById("level").innerText = "Level " + (level + 1);
+            document.getElementById("question").innerText = puzzles[level].question;
+            document.getElementById("answer").value = "";
+            document.getElementById("message").innerText = "";
+        }
+
+        function checkAnswer() {
+            let userAnswer = document.getElementById("answer").value.toLowerCase();
+            let correctAnswer = puzzles[level].answer.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                level++;
+
+                if (level < puzzles.length) {
+                    loadPuzzle();
+                } else {
+                    document.querySelector(".box").innerHTML = `
+                <h2>🎉 Congratulations!</h2>
+                <p>Your Score: ${score}/${puzzles.length}</p>
+                <button onclick="location.reload()">Play Again</button>
+            `;
+                }
+            } else {
+                document.getElementById("message").innerText = "❌ Try Again!";
+            }
+        }
+
+        loadPuzzle();
+    </script>
+
+</body>
+
+</html>
